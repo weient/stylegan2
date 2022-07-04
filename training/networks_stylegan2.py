@@ -195,8 +195,8 @@ def G_main(
 
     # Evaluate mapping network.
     dlatents = components.mapping.get_output_for(latents_in, labels_in, is_training=is_training, **kwargs)
-    print("latents_in : ", latents_in)
-    print("labels_in : ", labels_in)
+    #print("latents_in : ", latents_in)
+    #print("labels_in : ", labels_in)
     dlatents = tf.cast(dlatents, tf.float32)
 
     # Update moving average of W.

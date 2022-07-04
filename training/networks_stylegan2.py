@@ -193,7 +193,7 @@ def G_main(
 
     # Setup variables.
     lod_in = tf.get_variable('lod', initializer=np.float32(0), trainable=False)
-    print("lod_in : ",kid_in)
+    print("lod_in : ",lod_in)
     dlatent_avg = tf.get_variable('dlatent_avg', shape=[dlatent_size], initializer=tf.initializers.zeros(), trainable=False)
 
     # Evaluate mapping network.

@@ -342,6 +342,8 @@ def G_style(
 
     # Evaluate mapping network.
     dlatents = components.mapping.get_output_for(latents_in, labels_in, **kwargs)
+    print("latents_in : ", latents_in)
+    print("labels_in : ", labels_in)
 
     # Update moving average of W.
     if dlatent_avg_beta is not None:

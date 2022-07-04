@@ -186,17 +186,20 @@ def G_main(
         components.synthesis = tflib.Network('G_synthesis', func_name=globals()[synthesis_func], **kwargs)
     num_layers = components.synthesis.input_shape[1]
     dlatent_size = components.synthesis.input_shape[2]
+    print("num_layers : ", num_layers)
+    print("dlatent_size : ", dlatent_size)
     if 'mapping' not in components:
         components.mapping = tflib.Network('G_mapping', func_name=globals()[mapping_func], dlatent_broadcast=num_layers, **kwargs)
 
     # Setup variables.
     lod_in = tf.get_variable('lod', initializer=np.float32(0), trainable=False)
+    print("lod_in : ",kid_in)
     dlatent_avg = tf.get_variable('dlatent_avg', shape=[dlatent_size], initializer=tf.initializers.zeros(), trainable=False)
 
     # Evaluate mapping network.
     dlatents = components.mapping.get_output_for(latents_in, labels_in, is_training=is_training, **kwargs)
-    #print("latents_in : ", latents_in)
-    #print("labels_in : ", labels_in)
+    print("latents_in : ", latents_in)
+    print("labels_in : ", labels_in)
     dlatents = tf.cast(dlatents, tf.float32)
 
     # Update moving average of W.

@@ -493,10 +493,10 @@ def G_synthesis_stylegan2(
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
             x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
-            print(x)
+            #print(x)
             x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
-            print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
-            print(x)
+            #print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
+            #print(x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)
         if architecture == 'skip':
@@ -507,8 +507,10 @@ def G_synthesis_stylegan2(
         with tf.variable_scope('%dx%d' % (2**res, 2**res)):
             x = block(x, res)
             if architecture == 'skip':
+                #做圖左部分upsample
                 y = upsample(y)
             if architecture == 'skip' or res == resolution_log2:
+                #在torgb裡面有modulated conv2d，把x丟進去變成t，最後t跟y相加（addition）
                 y = torgb(x, y, res)
     images_out = y
 

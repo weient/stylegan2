@@ -420,6 +420,7 @@ def G_synthesis_stylegan_revised(
 # Used in configs E-F (Table 1).
 
 def G_synthesis_stylegan2(
+    # mapping network 的 output
     dlatents_in,                        # Input: Disentangled latents (W) [minibatch, num_layers, dlatent_size].
     dlatent_size        = 512,          # Disentangled latent (W) dimensionality.
     num_channels        = 3,            # Number of output color channels.
@@ -428,6 +429,7 @@ def G_synthesis_stylegan2(
     fmap_decay          = 1.0,          # log2 feature map reduction when doubling the resolution.
     fmap_min            = 1,            # Minimum number of feature maps in any layer.
     fmap_max            = 512,          # Maximum number of feature maps in any layer.
+    # content encoder 的 output
     randomize_noise     = True,         # True = randomize noise inputs every time (non-deterministic), False = read noise inputs from variables.
     architecture        = 'skip',       # Architecture: 'orig', 'skip', 'resnet'.
     nonlinearity        = 'lrelu',      # Activation function: 'relu', 'lrelu', etc.

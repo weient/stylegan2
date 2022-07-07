@@ -495,6 +495,7 @@ def G_synthesis_stylegan2(
             x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             print(x)
             x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
+            print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
             print(x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)

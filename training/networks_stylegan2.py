@@ -429,7 +429,6 @@ def G_synthesis_stylegan2(
     fmap_decay          = 1.0,          # log2 feature map reduction when doubling the resolution.
     fmap_min            = 1,            # Minimum number of feature maps in any layer.
     fmap_max            = 512,          # Maximum number of feature maps in any layer.
-    # content encoder 的 output
     randomize_noise     = True,         # True = randomize noise inputs every time (non-deterministic), False = read noise inputs from variables.
     architecture        = 'skip',       # Architecture: 'orig', 'skip', 'resnet'.
     nonlinearity        = 'lrelu',      # Activation function: 'relu', 'lrelu', etc.
@@ -492,6 +491,7 @@ def G_synthesis_stylegan2(
     y = None
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
+            # x應該就是generator的input（隨機的），要改成content encoder的output
             x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             #print(x)
             x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])

@@ -162,6 +162,8 @@ def training_loop(
     # 所有network(包含generator, discriminator等等)都會先變成class Network的型別，用class Network底下的函式run。
 
     grid_latents = np.random.randn(np.prod(grid_size), *G.input_shape[1:])
+    print("grid_latents x length: ", len(grid_latents[0]))
+    print("grid_latents y length: ", len(grid_latents))
     print("grid_latents: ", grid_latents)
     print("*G.input_shape[1:] : ", *G.input_shape[1:])
     grid_fakes = Gs.run(grid_latents, grid_labels, is_validation=True, minibatch_size=sched.minibatch_gpu)

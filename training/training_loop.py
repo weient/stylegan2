@@ -160,14 +160,14 @@ def training_loop(
     # Print layers and generate initial image snapshot.
     G.print_layers(); D.print_layers()
     sched = training_schedule(cur_nimg=total_kimg*1000, training_set=training_set, **sched_args)
-    # 這裡是generator的input，要改成content encoder的output
+    # 這裡是mapping network的input，要改成style encoder的output
     # 所有network(包含generator, discriminator等等)都會先變成class Network的型別，用class Network底下的函式run。
 
     grid_latents = np.random.randn(np.prod(grid_size), *G.input_shape[1:])
     print("grid_latents x length: ", len(grid_latents[0]))
     print("grid_latents y length: ", len(grid_latents))
-    print("grid_latents: ", grid_latents)
-    print("*G.input_shape[1:] : ", *G.input_shape[1:])
+    #print("grid_latents: ", grid_latents)
+    #print("*G.input_shape[1:] : ", *G.input_shape[1:])
     grid_fakes = Gs.run(grid_latents, grid_labels, is_validation=True, minibatch_size=sched.minibatch_gpu)
     misc.save_image_grid(grid_fakes, dnnlib.make_run_dir_path('fakes_init.png'), drange=drange_net, grid_size=grid_size)
 

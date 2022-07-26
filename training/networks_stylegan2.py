@@ -492,7 +492,7 @@ def G_synthesis_stylegan2(
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
             # x應該就是generator的input（隨機的），要改成content encoder的output
-            x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
+            x = tf.get_variable('const', shape=[1, nf(1), 5, 5], initializer=tf.initializers.random_normal())
             #print(x)
             x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
             #print("dlatents_in shape: ", tf.shape(dlatents_in)[0])

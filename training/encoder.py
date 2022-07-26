@@ -99,23 +99,23 @@ def classifier(x, n_classes):
     return outputs
 
 # The input tensor
-inputs = Input(shape=(1000, 1000, 3))
+#inputs = Input(shape=(1000, 1000, 3))
 
 # The Stem Convolution Group
-x = stem(inputs)
+#x = stem(inputs)
 
 # The learner
-x = learner(x)
+#x = learner(x)
 
-x = tensorflow.transpose(x, perm = [0, 3, 1, 2])
-print("x after transpose: ", x)
+#x = tensorflow.transpose(x, perm = [0, 3, 1, 2])
+#print("x after transpose: ", x)
 #print("x: ", x)    
 # The Classifier for 1000 classes
-outputs = classifier(x, 1000)
+#outputs = classifier(x, 1000)
 
 # Instantiate the Model
 #model = Model(inputs, outputs)
 
-print("input: ", inputs)
+#print("input: ", inputs)
 #print("output: ", outputs)
 #print("model: ", model)

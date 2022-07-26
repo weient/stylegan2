@@ -493,10 +493,15 @@ def G_synthesis_stylegan2(
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
             inputs = Input(shape=(1000, 1000, 3))
+            print("line 1")
             x = stem(inputs)
+            print("line 2")
             x = learner(x)
+            print("line 3")
             x_1 = tf.transpose(x, perm = [0, 3, 1, 2])
+            print("line 4")
             x = tf.cast(x_1, dtype)
+            print("line 5")
             # x應該就是generator的input（隨機的），要改成content encoder的output
             #x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             #print(x)
@@ -507,6 +512,7 @@ def G_synthesis_stylegan2(
             #print("x (generator的input) shape: ", x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)
+            print("line 6")
         if architecture == 'skip':
             y = torgb(x, y, 2)
 

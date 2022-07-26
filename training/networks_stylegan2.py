@@ -498,7 +498,7 @@ def G_synthesis_stylegan2(
             #print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
             
             print("numpy x: ", x.shape.as_list())
-            print("x (generator的input) shape: ", tf.shape(x))
+            print("x (generator的input) shape: ", x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)
         if architecture == 'skip':

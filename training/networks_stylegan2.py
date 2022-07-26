@@ -12,7 +12,8 @@ import dnnlib
 import dnnlib.tflib as tflib
 from dnnlib.tflib.ops.upfirdn_2d import upsample_2d, downsample_2d, upsample_conv_2d, conv_downsample_2d
 from dnnlib.tflib.ops.fused_bias_act import fused_bias_act
-
+from training.encoder import *
+from tensorflow.keras import Input
 # NOTE: Do not import any application-specific modules here!
 # Specify all network parameters as kwargs.
 
@@ -491,14 +492,18 @@ def G_synthesis_stylegan2(
     y = None
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
+            inputs = Input(shape=(1000, 1000, 3))
+            x = stem(inputs)
+            x = learner(x)
+            x = tensorflow.transpose(x, perm = [0, 3, 1, 2])
             # x應該就是generator的input（隨機的），要改成content encoder的output
-            x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
+            #x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             #print(x)
-            x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
+            #x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
             #print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
             
-            print("numpy x: ", x.shape.as_list())
-            print("x (generator的input) shape: ", x)
+            #print("numpy x: ", x.shape.as_list())
+            #print("x (generator的input) shape: ", x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)
         if architecture == 'skip':

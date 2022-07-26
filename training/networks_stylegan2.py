@@ -495,8 +495,8 @@ def G_synthesis_stylegan2(
             inputs = Input(shape=(1000, 1000, 3))
             x = stem(inputs)
             x = learner(x)
-            x = tf.transpose(x, perm = [0, 3, 1, 2])
-            x = tf.cast(x, dtype)
+            x_1 = tf.transpose(x, perm = [0, 3, 1, 2])
+            x = tf.cast(x_1, dtype)
             # x應該就是generator的input（隨機的），要改成content encoder的output
             #x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             #print(x)

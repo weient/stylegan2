@@ -492,7 +492,7 @@ def G_synthesis_stylegan2(
     y = None
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
-            inputs = Input(shape=(1000, 1000, 3))
+            inputs = Input(shape=(1000, 1000, 3), name = 'const')
             print("line 1")
             x = stem(inputs)
             print("line 2")

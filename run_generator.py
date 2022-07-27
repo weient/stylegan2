@@ -30,7 +30,7 @@ def generate_images(network_pkl, seeds, truncation_psi):
     for seed_idx, seed in enumerate(seeds):
         print('Generating image for seed %d (%d/%d) ...' % (seed, seed_idx, len(seeds)))
         rnd = np.random.RandomState(seed)
-        # train完後跑generator.py就可以生成圖片，這邊的z之後也要改成content encoder的output
+        # train完後跑generator.py就可以生成圖片，這邊的z之後也要改成style encoder的output
         # 跟training_loop裡的grid_latents一樣
         z = rnd.randn(1, *Gs.input_shape[1:]) # [minibatch, component]
         tflib.set_vars({var: rnd.randn(*var.shape.as_list()) for var in noise_vars}) # [height, width]

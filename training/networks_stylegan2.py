@@ -493,12 +493,12 @@ def G_synthesis_stylegan2(
     y = None
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
-            #inputs = Input(shape=(1000, 1000, 3))
-            #x = stem(inputs)
-            #x = learner(x)
-            #x = tf.transpose(x, perm = [0, 3, 1, 2])
-            x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
-            x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
+            inputs = Input(shape=(1000, 1000, 3))
+            x = stem(inputs)
+            x = learner(x)
+            x = tf.transpose(x, perm = [0, 3, 1, 2])
+            #x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
+            #x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
             #return_val = tf.assign(x, tmp)
             #with tf.Session() as sess:
             #    print(sess.run(return_val))
@@ -507,7 +507,7 @@ def G_synthesis_stylegan2(
             #print(x)
             #x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
             #print("dlatents_in shape: ", tf.shape(dlatents_in)[0])
-            print("shape of x: ", x.shape.as_list())
+            #print("shape of x: ", x.shape.as_list())
             #print("x (generator的input) shape: ", x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)

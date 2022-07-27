@@ -488,20 +488,20 @@ def G_synthesis_stylegan2(
             t = apply_bias_act(modulated_conv2d_layer(x, dlatents_in[:, res*2-3], fmaps=num_channels, kernel=1, demodulate=False, fused_modconv=fused_modconv))
             return t if y is None else y + t
 
+    inputs = Input(shape=(1000, 1000, 3))
+    tmp = stem(inputs)
+    tmp = learner(tmp)
+    tmp = tf.transpose(tmp, perm = [0, 3, 1, 2])
+    #tmp = tf.cast(tmp, dtype)
     # Early layers.
     y = None
     with tf.variable_scope('4x4'):
         with tf.variable_scope('Const'):
-            inputs = Input(shape=(1000, 1000, 3), name = 'const')
-            print("line 1")
-            x = stem(inputs)
-            print("line 2")
-            x = learner(x)
-            print("line 3")
-            x_1 = tf.transpose(x, perm = [0, 3, 1, 2])
-            print("line 4")
-            x = tf.cast(x_1, dtype)
-            print("line 5")
+            x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
+            x = tf.tile(tf.cast(x, dtype), [tf.shape(dlatents_in)[0], 1, 1, 1])
+            return_val = tf.assign(x, tmp)
+            with tf.Session() as sess:
+                print(sess.run(return_val))
             # x應該就是generator的input（隨機的），要改成content encoder的output
             #x = tf.get_variable('const', shape=[1, nf(1), 4, 4], initializer=tf.initializers.random_normal())
             #print(x)
@@ -512,7 +512,6 @@ def G_synthesis_stylegan2(
             #print("x (generator的input) shape: ", x)
         with tf.variable_scope('Conv'):
             x = layer(x, layer_idx=0, fmaps=nf(1), kernel=3)
-            print("line 6")
         if architecture == 'skip':
             y = torgb(x, y, 2)
 
